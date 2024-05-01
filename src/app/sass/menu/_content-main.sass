@@ -1,0 +1,69 @@
+& > .content-main
+    width: 100%
+    flex: 1
+    padding: 50px 0
+    display: flex
+    flex-direction: column
+
+    .home-link
+        padding: 10px 25px
+        font-size: 0.8rem
+        font-weight: bolder
+        margin-bottom: 20px
+        display: flex
+        align-items: center
+        gap: 10px
+
+        .icon
+            width: 50px
+            display: flex
+            justify-content: center
+            align-items: center
+
+
+    .menu-item
+        display: flex
+        align-items: center
+        gap: 15px
+        box-sizing: border-box
+        padding: 10px 25px
+
+    .menu-sub
+        flex: 1
+        display: flex
+        flex-direction: column
+
+    .menu-item
+        .icon
+            width: 15px
+            display: flex
+            justify-content: center
+            align-items: center
+
+    .menu-sub-item
+        display: flex
+        align-items: center
+        gap: 15px
+
+        .btn
+            width: 30px
+            height: 30px
+            border: none
+            outline: none
+            display: flex
+            justify-content: center
+            align-items: center
+            background-color: var(--color-2)
+            box-shadow: 1px 1px 4px var(--color-1)
+            border-radius: 0.4rem
+            
+            svg
+                width: 15px
+
+    .menu-sub-menu
+        .menu-item
+            padding: 10px 50px
+    
+    .menu-item:hover
+        background-color: var(--color-8)
+        color: var(--color-2)
