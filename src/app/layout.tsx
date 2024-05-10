@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Menu from "./menu";
 
 import './sass/main.sass'
+import Top from "./top";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,9 +20,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Menu />
-        <div id="container-main">
-          {children}
+        <div id="page">
+          <Menu />
+          <div id="page-main">
+            <Top />
+            <div id="container-main">
+              {children}
+            </div>
+          </div>
         </div>
       </body>
     </html>

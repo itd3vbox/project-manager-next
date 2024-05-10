@@ -16,24 +16,33 @@
 a
     text-decoration: none
 
-
 html,
 body
     width: 100%
     height: 100vh
     overflow: hidden
 
-body
-    box-sizing: border-box
-    padding: 25px
 
 button
     outline: none
     border: none
     cursor: pointer
 
+#page
+    max-width: 1400px
+    height: 100vh
+    margin: auto
+    display: flex
+    gap: 25px
+    box-sizing: border-box
+    padding: 10px
+
+#page-main
+    flex: 1
+
 #container-main
     flex: 1
     overflow: auto
 
 @import  './menu/main'
+@import './top/main'

@@ -49,7 +49,7 @@ export default class Menu extends React.Component<any, MenuState>
                     </a>
                     <div className="menu">
 
-                        <Link href="projects" className="menu-item">
+                        <Link href="projects" className="menu-item current">
                             <span className="icon">
                                 <SparklesIcon />
                             </span>
@@ -65,7 +65,7 @@ export default class Menu extends React.Component<any, MenuState>
 
                         <div className="menu-sub">
 
-                            <div className="menu-sub-item">
+                            <div className="menu-sub-item current">
                                 <Link href="automatization" className="menu-item">
                                     <span className="icon">
                                         <SparklesIcon />
