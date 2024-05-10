@@ -1,14 +1,16 @@
 import Link from 'next/link';
 import {
     PlayIcon,
+    SparklesIcon,
 } from '@heroicons/react/24/outline';
 
-import './sass/main.sass';
+import Home from './home';
 
-export default function Page() 
+export default function PageHome() 
 {
     return (
-        <div id="page">
-        </div>
+        <>
+            <Home />
+        </>
     );
 }

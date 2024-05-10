@@ -1,7 +1,14 @@
 import Image from "next/image";
+import PageHome from "./home/page";
 
-export default function Page() {
+export default function Page({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <div id="home"></div>
+    <>
+      <PageHome />
+    </>
   );
 }
