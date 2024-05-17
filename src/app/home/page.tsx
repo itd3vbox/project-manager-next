@@ -4,7 +4,7 @@ import {
     SparklesIcon,
 } from '@heroicons/react/24/outline';
 
-import Home from './home';
+import Home from './Home';
 
 export default function PageHome() 
 {

@@ -7,7 +7,11 @@ import {
     SparklesIcon,
 } from '@heroicons/react/24/outline';
 import Calendar from '@/components/calendar/Calendar';
-import Project from "@/components/projects/Project";
+import Project from "./Project";
+
+import Tasks from "./Tasks";
+import Tests from "./Tests";
+import Alerts from "./Alerts";
 
 import './sass/main.sass';
 
@@ -40,7 +44,7 @@ export default class Home extends React.Component<any, HomeState>
         for (let index = 0; index < 2; index++) 
         {
             projects.push(
-                <Project />
+                <Project key={index} />
             )
         }
 
@@ -104,7 +108,9 @@ export default class Home extends React.Component<any, HomeState>
                     </div>
                 </div>
                 <div className="h-tasks-tests-alerts">
-                    
+                   <Tasks />
+                   <Tests />
+                   <Alerts />
                 </div>
             </div>
         )

@@ -2,4 +2,14 @@
     width: 100%
     
     @import './_zero'
-    @import './_projects'
+    @import './projects/main'
+
+    .h-tasks-tests-alerts
+        display: flex
+        flex-wrap: wrap
+        gap: 25px
+        margin-top: 25px
+
+        @import './tasks/main'
+        @import './tests/main'
+        @import './alerts/main'
