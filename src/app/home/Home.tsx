@@ -11,7 +11,7 @@ import Project from "./Project";
 
 import Tasks from "./Tasks";
 import Tests from "./Tests";
-import Alerts from "./Alerts";
+import Notifications from "./Notifications";
 
 import './sass/main.sass';
 
@@ -107,10 +107,10 @@ export default class Home extends React.Component<any, HomeState>
                         { this.renderProjects() }
                     </div>
                 </div>
-                <div className="h-tasks-tests-alerts">
+                <div className="h-tasks-tests-notifications">
                    <Tasks />
                    <Tests />
-                   <Alerts />
+                   <Notifications />
                 </div>
             </div>
         )

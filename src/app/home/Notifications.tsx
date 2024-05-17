@@ -7,18 +7,18 @@ import {
 } from '@heroicons/react/24/outline';
 
 
-interface AlertsProps
+interface NotificationsProps
 {
     
 }
 
 
-interface AlertsState
+interface NotificationsState
 {
     
 }
 
-export default class Alerts extends React.Component<any, AlertsState>
+export default class Notifications extends React.Component<any, NotificationsState>
 {
 
     constructor(props: any)
@@ -29,14 +29,14 @@ export default class Alerts extends React.Component<any, AlertsState>
         }
     }
 
-    renderAlerts()
+    renderNotifications()
     {
-        const alerts: any = []
+        const notifications: any = []
 
         for (let index = 0; index < 5; index++) 
         {
-            alerts.push(
-                <div className={ "alert" + (index === 0 ? ' read' : '') } key={ index }>
+            notifications.push(
+                <div className={ "notification" + (index === 0 ? ' read' : '') } key={ index }>
                     <div className="icon">
                         <ExclamationTriangleIcon />
                     </div>
@@ -50,19 +50,19 @@ export default class Alerts extends React.Component<any, AlertsState>
                 </div>
             )
         }
-        return alerts
+        return notifications
     }
 
     render()
     {
         return (
-            <div className="h-alerts">
+            <div className="h-notifications">
             {/* Reusable Component ... copy this model */}
                 <div className="label">
-                    <h6>Alerts <span className="total">(5)</span></h6>
+                    <h6>Notifications <span className="total">(5)</span></h6>
                 </div>
                 <div className="list">
-                    { this.renderAlerts() }
+                    { this.renderNotifications() }
                 </div>
             </div>
         )
