@@ -82,7 +82,7 @@ export default class Menu extends React.Component<any, MenuState>
                                     Tests    
                                 </Link>
                                 <Link href="automatization/alerts" className="menu-item">
-                                    Alerts    
+                                    Notifications
                                 </Link>
                             </div>
                         </div>  
