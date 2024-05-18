@@ -88,7 +88,7 @@ export default class Home extends React.Component<any, HomeState>
                             </div>
                         </div>
                         <div className="indicator">
-                            <div className="label">Alerts</div>
+                            <div className="label">Notifications</div>
                             <div className="icon-value">
                                 <div className="icon">
                                     <SparklesIcon />
