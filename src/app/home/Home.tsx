@@ -10,7 +10,7 @@ import Calendar from '@/components/calendar/Calendar';
 import Project from "./Project";
 
 import Tasks from "./Tasks";
-import Tests from "./Tests";
+import Automates from "./Automates";
 import Notifications from "./Notifications";
 
 import './sass/main.sass';
@@ -79,7 +79,7 @@ export default class Home extends React.Component<any, HomeState>
                             </div>
                         </div>
                         <div className="indicator">
-                            <div className="label">Tests</div>
+                            <div className="label">Automates</div>
                             <div className="icon-value">
                                 <div className="icon">
                                     <SparklesIcon />
@@ -107,9 +107,9 @@ export default class Home extends React.Component<any, HomeState>
                         { this.renderProjects() }
                     </div>
                 </div>
-                <div className="h-tasks-tests-notifications">
+                <div className="h-tasks-automates-notifications">
                    <Tasks />
-                   <Tests />
+                   <Automates />
                    <Notifications />
                 </div>
             </div>

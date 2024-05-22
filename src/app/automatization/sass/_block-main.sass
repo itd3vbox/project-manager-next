@@ -1,0 +1,67 @@
+.a-block-main
+    width: 100%
+    flex: 1
+
+    .list
+        width: 100%
+        display: grid
+        grid-template-columns: repeat(auto-fill, 270px)
+        justify-content: center
+        gap: 25px
+
+        .automate
+            width: 270px
+            height: 150px
+            border-radius: 1rem
+            background-color: aqua
+            box-sizing: border-box
+            padding: 10px
+            display: flex
+            flex-direction: column
+            gap: 10px
+
+            .block-top
+                display: flex
+                justify-content: space-between
+                align-items: center
+                gap: 10px
+                .icon
+                    width: 30px
+                    height: 30px
+                    display: flex
+                    justify-content: center
+                    align-items: center
+                    background-color: white
+                    border-radius: 0.4rem
+                    svg
+                        width: 15px
+
+                .options
+                    display: flex
+                    gap: 5px
+                    button
+                        background-color: aqua
+                        svg
+                            width: 15px
+
+            .block-main
+                width: 100%
+                flex: 1
+
+                .name
+                    font-size: 0.8rem
+                    font-weight: bolder
+
+                .project
+                    margin-top: 10px
+                    font-size: 0.8rem
+                    display: flex
+                    align-items: center
+                    gap: 5px
+
+                .date-latest
+                    display: flex
+                    align-items: center
+                    gap: 5px
+                    font-size: 0.8rem
+                    margin-top: 5px

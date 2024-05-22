@@ -7,18 +7,18 @@ import {
 } from '@heroicons/react/24/outline';
 
 
-interface TestsProps
+interface AutomatesProps
 {
     
 }
 
 
-interface TestsState
+interface AutomatesState
 {
     
 }
 
-export default class Tests extends React.Component<any, TestsState>
+export default class Automates extends React.Component<any, AutomatesState>
 {
 
     constructor(props: any)
@@ -29,14 +29,14 @@ export default class Tests extends React.Component<any, TestsState>
         }
     }
 
-    renderTests()
+    renderAutomates()
     {
         const tests: any = []
 
         for (let index = 0; index < 5; index++) 
         {
             tests.push(
-                <div className={ "test" + (index === 0 ? ' on-progress' : '') } key={ index }>
+                <div className={ "automate" + (index === 0 ? ' on-progress' : '') } key={ index }>
                     <div className="icon">
                         <ClockIcon />
                     </div>
@@ -54,12 +54,12 @@ export default class Tests extends React.Component<any, TestsState>
     render()
     {
         return (
-            <div className="h-tests">
+            <div className="h-automates">
                 <div className="label">
-                    <h6>Tests <span className="total">(5)</span></h6>
+                    <h6>Automates <span className="total">(5)</span></h6>
                 </div>
                 <div className="list">
-                    { this.renderTests() }
+                    { this.renderAutomates() }
                 </div>
             </div>
         )
