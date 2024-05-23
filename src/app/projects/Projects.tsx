@@ -8,6 +8,7 @@ import {
 import Project from "./Project";
 import DialogCreate from "./DialogCreate/DialogCreate";
 import DialogShow from "./DialogShow/DialogShow";
+import DialogDelete from "./DialogDelete/DialogDelete";
 
 
 interface ProjectsProps
@@ -20,12 +21,13 @@ interface ProjectsState
 
 }
 
-export default class Projects extends React.Component<any, ProjectsState>
+export default class Projects extends React.Component<ProjectsProps, ProjectsState>
 {
     refDialogCreate: any
     refDialogShow: any
+    refDialogDelete: any
 
-    constructor(props: any)
+    constructor(props: ProjectsProps)
     {
         super(props)
         this.state = {
@@ -33,11 +35,17 @@ export default class Projects extends React.Component<any, ProjectsState>
         }
         this.refDialogCreate = React.createRef()
         this.refDialogShow = React.createRef()
+        this.refDialogDelete = React.createRef()
     }
 
     handleDialogCreateOnSelect()
     {
         this.refDialogCreate.current.select()
+    }
+
+    handleDialogShowOnSelect()
+    {
+        this.refDialogShow.current.select()
     }
 
     renderProjects()
@@ -46,7 +54,7 @@ export default class Projects extends React.Component<any, ProjectsState>
         for (let index = 0; index < 10; index++) 
         {
             elements.push(
-                <Project key={ index } />
+                <Project key={ index } onShow={ () => this.handleDialogShowOnSelect() } />
             )
         }
 
@@ -70,7 +78,8 @@ export default class Projects extends React.Component<any, ProjectsState>
                     { this.renderProjects() }
                 </div>
                 <DialogCreate ref={ this.refDialogCreate } />
-                <DialogShow ref={ this.refDialogCreate } />
+                <DialogShow ref={ this.refDialogShow } />
+                <DialogDelete ref={ this.refDialogDelete } />
             </div>
         )
     }

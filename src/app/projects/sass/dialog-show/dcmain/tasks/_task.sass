@@ -1,6 +1,10 @@
 .task
     width: 100%
 
+    &.selected
+        .t-main
+            display: block
+
     .t-top
         width: 100%
         display: flex
@@ -43,6 +47,7 @@
         border-radius: 0.4rem
         background-color: aqua
         margin-top: 10px
+        display: none
         
         & > *:not(:first-child)
             margin-top: 10px
@@ -67,5 +72,6 @@
             font-size: 1rem
         p
             font-size: 0.8rem
+            
             
                 

@@ -11,7 +11,7 @@ import {
 
 interface ProjectProps
 {
-    
+    onShow: any
 }
 
 
@@ -20,10 +20,10 @@ interface ProjectState
     
 }
 
-export default class Project extends React.Component<any, ProjectState>
+export default class Project extends React.Component<ProjectProps, ProjectState>
 {
 
-    constructor(props: any)
+    constructor(props: ProjectProps)
     {
         super(props)
         this.state = {
@@ -40,7 +40,8 @@ export default class Project extends React.Component<any, ProjectState>
                         <div className="indicator"></div>
                         <div className="value">On Progess</div>
                     </div>
-                    <button className="btn-more" type="button">
+                    <button className="btn-more" type="button"
+                        onClick={ () => this.props.onShow() }>
                         <EllipsisVerticalIcon />
                     </button>
                 </div>

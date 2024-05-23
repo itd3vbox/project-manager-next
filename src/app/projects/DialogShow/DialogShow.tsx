@@ -21,10 +21,10 @@ interface DialogShowState
     tabsMenuItemSelected: number
 }
 
-export default class DialogShow extends React.Component<any, DialogShowState>
+export default class DialogShow extends React.Component<DialogShowProps, DialogShowState>
 {
 
-    constructor(props: any)
+    constructor(props: DialogShowProps)
     {
         super(props)
         this.state = {
@@ -54,7 +54,7 @@ export default class DialogShow extends React.Component<any, DialogShowState>
         const elements: any = []
         for (let index = 0; index < 10; index++) 
         {
-            elements.push(<Task key={ index } />)
+            elements.push(<Task key={ index } order={ index + 1 } />)
         }
         return (elements)
     }
