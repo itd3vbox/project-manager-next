@@ -1,0 +1,71 @@
+.task
+    width: 100%
+
+    .t-top
+        width: 100%
+        display: flex
+        align-items: center
+        gap: 10px
+        box-sizing: border-box
+        padding: 10px
+        border-radius: 0.4rem
+        background-color: aqua
+
+        .number
+            font-size: 0.8rem
+        .title
+            flex: 1
+            font-size: 0.8rem
+
+        .options
+            display: flex
+            align-items: center
+            gap: 5px
+
+        button.btn-status
+            width: 22px
+            height: 22px
+            border-radius: 50%
+            background-color: red
+
+        button
+            display: flex
+            justify-content: center
+            align-items: center
+            background-color: aqua
+            svg
+                width: 15px
+
+    .t-main
+        width: 100%
+        box-sizing: border-box
+        padding: 10px
+        border-radius: 0.4rem
+        background-color: aqua
+        margin-top: 10px
+        
+        & > *:not(:first-child)
+            margin-top: 10px
+
+        .status
+            .label
+                font-size: 0.8rem
+                font-weight: bolder
+            .shape-value
+                display: flex
+                align-items: center
+                gap: 5px
+                margin-top: 5px
+                .shape
+                    width: 10px
+                    height: 10px
+                    border-radius: 50%
+                    background-color: red
+                .value
+                    font-size: 0.8rem
+        h6
+            font-size: 1rem
+        p
+            font-size: 0.8rem
+            
+                

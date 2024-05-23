@@ -40,7 +40,7 @@ export default class Project extends React.Component<any, ProjectState>
                         <div className="indicator"></div>
                         <div className="value">On Progess</div>
                     </div>
-                    <button className="btn" type="button">
+                    <button className="btn-more" type="button">
                         <EllipsisVerticalIcon />
                     </button>
                 </div>

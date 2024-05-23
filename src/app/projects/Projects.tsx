@@ -6,28 +6,38 @@ import {
     PlusIcon,
 } from '@heroicons/react/24/outline';
 import Project from "./Project";
+import DialogCreate from "./DialogCreate/DialogCreate";
+import DialogShow from "./DialogShow/DialogShow";
 
 
 interface ProjectsProps
 {
-    
 }
 
 
 interface ProjectsState
 {
-    
+
 }
 
 export default class Projects extends React.Component<any, ProjectsState>
 {
+    refDialogCreate: any
+    refDialogShow: any
 
     constructor(props: any)
     {
         super(props)
         this.state = {
-
+            
         }
+        this.refDialogCreate = React.createRef()
+        this.refDialogShow = React.createRef()
+    }
+
+    handleDialogCreateOnSelect()
+    {
+        this.refDialogCreate.current.select()
     }
 
     renderProjects()
@@ -49,7 +59,8 @@ export default class Projects extends React.Component<any, ProjectsState>
             <div id="projects">
                 <div className="p-options">
                     <div className="options">
-                        <button type="button" className="btn-add">
+                        <button type="button" className="btn-create"
+                            onClick={ () => this.handleDialogCreateOnSelect() }>
                            <PlusIcon />
                         </button>
                     </div>
@@ -58,6 +69,8 @@ export default class Projects extends React.Component<any, ProjectsState>
                 <div className="p-list">
                     { this.renderProjects() }
                 </div>
+                <DialogCreate ref={ this.refDialogCreate } />
+                <DialogShow ref={ this.refDialogCreate } />
             </div>
         )
     }
