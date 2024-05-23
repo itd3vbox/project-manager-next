@@ -17,7 +17,9 @@ interface CalendarProps
 
 interface CalendarState
 {
-    
+    days: Array<{ day: number, className: string }>
+    year: number
+    month: number
 }
 
 export default class Calendar extends React.Component<any, CalendarState>
@@ -26,25 +28,121 @@ export default class Calendar extends React.Component<any, CalendarState>
     constructor(props: any)
     {
         super(props)
+        const now = new Date()
         this.state = {
-
+            days: [],
+            year: now.getFullYear(),
+            month: now.getMonth(),
         }
+    }
+
+    componentDidMount() 
+    {
+        this.computeMonthDays()
+    }
+
+    handleMonthOnPrev()
+    {
+        this.setState((prevState) => {
+            const newMonth = prevState.month - 1
+            const newYear = newMonth < 0 ? prevState.year - 1 : prevState.year
+            return {
+                month: (newMonth + 12) % 12,
+                year: newYear,
+            }
+        }, this.computeMonthDays)
+    }
+
+    handleMonthOnNext()
+    {
+        this.setState((prevState) => {
+            const newMonth = prevState.month + 1
+            const newYear = newMonth > 11 ? prevState.year + 1 : prevState.year
+            return {
+                month: newMonth % 12,
+                year: newYear,
+            };
+        }, this.computeMonthDays)
+    }
+
+    computeMonthDays()
+    {
+        const { year, month } = this.state;
+
+        const firstDayOfMonth = new Date(year, month, 1).getDay()
+        const lastDateOfMonth = new Date(year, month + 1, 0).getDate()
+        const lastDayOfMonth = new Date(year, month, lastDateOfMonth).getDay()
+
+        const days = []
+
+        // Fill in days from the previous month
+        if (firstDayOfMonth !== 0) 
+        {
+            const lastDateOfPrevMonth = new Date(year, month, 0).getDate()
+            for (let i = firstDayOfMonth - 1; i >= 0; i--) 
+            {
+                days.push({
+                    day: lastDateOfPrevMonth - i,
+                    className: 'date month-prev'
+                })
+            }
+        }
+
+        // Fill in days of the current month
+        for (let i = 1; i <= lastDateOfMonth; i++) 
+        {
+            days.push({
+                day: i,
+                className: 'date'
+            })
+        }
+
+        // Fill in days from the next month
+        if (lastDayOfMonth !== 6) 
+        {
+            for (let i = 1; i <= 6 - lastDayOfMonth; i++) 
+            {
+                days.push({
+                    day: i,
+                    className: 'date month-next'
+                })
+            }
+        }
+
+        this.setState({
+            ...this.state,
+            days,
+        })
+    }
+
+    renderDays()
+    {
+        return this.state.days.map((dayInfo, index) => (
+            <div key={ index } className={ dayInfo.className }>
+                <button className="btn">{ dayInfo.day }</button>
+            </div>
+        ))
     }
 
     render()
     {
+        const { year, month } = this.state
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
         return (
             <div className="calendar" onClick={ this.props.onDateClick }>
                 <div className="block-top">
                     <div className="date">
-                        <div className="month">Dec</div>
-                        <div className="year">2022</div>
+                        <div className="month">{ monthNames[month] }</div>
+                        <div className="year">{ this.state.year }</div>
                     </div>
                     <div className="options">
-                        <button className="btn">
+                        <button className="btn"
+                            onClick={ () =>this.handleMonthOnPrev() }>
                             <ArrowLeftIcon />
                         </button>
-                        <button className="btn">
+                        <button className="btn"
+                            onClick={ () =>this.handleMonthOnNext() }>
                             <ArrowRightIcon />
                         </button>
                     </div>
@@ -60,116 +158,7 @@ export default class Calendar extends React.Component<any, CalendarState>
                         <div className="day">SAT</div>
                     </div>
                     <div className="dates">
-                        {/* Week 1 */}
-                        <div className="date">
-                            <button className="btn">1</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">2</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">3</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">4</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">5</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">6</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">7</button>
-                        </div>
-                        {/* Week 2 */}
-                        <div className="date">
-                            <button className="btn">8</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">9</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">10</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">11</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">12</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">13</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">14</button>
-                        </div>
-                        {/* Week 3 */}
-                        <div className="date">
-                            <button className="btn">15</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">16</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">17</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">18</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">19</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">20</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">21</button>
-                        </div>
-                        {/* Week 4 */}
-                        <div className="date events">
-                            <button className="btn">22</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">23</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">24</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">25</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">26</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">27</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">28</button>
-                        </div>
-                        {/* Week 4 */}
-                        <div className="date">
-                            <button className="btn">29</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">30</button>
-                        </div>
-                        <div className="date">
-                            <button className="btn">31</button>
-                        </div>
-                        <div className="date month-next">
-                            <button className="btn">1</button>
-                        </div>
-                        <div className="date month-next">
-                            <button className="btn">2</button>
-                        </div>
-                        <div className="date month-next">
-                            <button className="btn">3</button>
-                        </div>
-                        <div className="date month-next">
-                            <button className="btn">4</button>
-                        </div>
+                        { this.renderDays() }
                     </div>
                 </div>
             </div>
