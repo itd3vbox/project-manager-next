@@ -49,14 +49,14 @@ export default class Menu extends React.Component<any, MenuState>
                     </a>
                     <div className="menu">
 
-                        <Link href="projects" className="menu-item current">
+                        <Link href="/projects" className="menu-item current">
                             <span className="icon">
                                 <SparklesIcon />
                             </span>
                             <span className="name">Projects</span>
                         </Link>
 
-                        <Link href="tasks" className="menu-item">
+                        <Link href="/tasks" className="menu-item">
                             <span className="icon">
                                 <SparklesIcon />
                             </span>
@@ -66,7 +66,7 @@ export default class Menu extends React.Component<any, MenuState>
                         <div className="menu-sub">
 
                             <div className="menu-sub-item current">
-                                <Link href="automatization" className="menu-item">
+                                <Link href="/automatization" className="menu-item">
                                     <span className="icon">
                                         <SparklesIcon />
                                     </span>
@@ -78,16 +78,16 @@ export default class Menu extends React.Component<any, MenuState>
                             </div>
 
                             <div className="menu-sub-menu">
-                                <Link href="automatization/tests" className="menu-item">
+                                <Link href="/automatization/tests" className="menu-item">
                                     Tests    
                                 </Link>
-                                <Link href="automatization/alerts" className="menu-item">
+                                <Link href="/automatization/notifications" className="menu-item">
                                     Notifications
                                 </Link>
                             </div>
                         </div>  
                     
-                        <Link href="settings" className="menu-item">
+                        <Link href="/settings" className="menu-item">
                             <span className="icon">
                                 <SparklesIcon />
                             </span>

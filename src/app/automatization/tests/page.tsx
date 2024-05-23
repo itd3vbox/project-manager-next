@@ -4,13 +4,13 @@ import {
 } from '@heroicons/react/24/outline';
 
 import './sass/main.sass';
-import Projects from './Projects';
+import Tests from './Tests';
 
 export default function Page() 
 {
     return (
         <>
-            <Projects />
+            <Tests />
         </>
     );
 }
