@@ -11,7 +11,7 @@ import {
 
 interface TaskProps
 {
-    
+    order: number
 }
 
 
@@ -20,7 +20,7 @@ interface TaskState
     isSelected: boolean
 }
 
-export default class Task extends React.Component<any, TaskState>
+export default class Task extends React.Component<TaskProps, TaskState>
 {
 
     constructor(props: any)

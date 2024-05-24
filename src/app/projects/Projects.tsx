@@ -9,6 +9,7 @@ import Project from "./Project";
 import DialogCreate from "./DialogCreate/DialogCreate";
 import DialogShow from "./DialogShow/DialogShow";
 import DialogDelete from "./DialogDelete/DialogDelete";
+import Pagination from "@/components/pagination/Pagination";
 
 
 interface ProjectsProps
@@ -77,6 +78,7 @@ export default class Projects extends React.Component<ProjectsProps, ProjectsSta
                 <div className="p-list">
                     { this.renderProjects() }
                 </div>
+                <Pagination />
                 <DialogCreate ref={ this.refDialogCreate } />
                 <DialogShow ref={ this.refDialogShow } />
                 <DialogDelete ref={ this.refDialogDelete } />

@@ -1,35 +1,131 @@
 .task
     width: 100%
-    display: flex
-    align-items: center
-    gap: 10px
-    box-sizing: border-box
-    padding: 10px
-    border-radius: 0.4rem
-    background-color: aqua
 
-    .number
-        font-size: 0.8rem
-    .title
-        flex: 1
-        font-size: 0.8rem
+    &.selected
+        .t-main
+            display: block
 
-    .options
+    .t-top
+        width: 100%
         display: flex
         align-items: center
-        gap: 5px
-
-    button.btn-status
-        width: 22px
-        height: 22px
-        border-radius: 50%
-        background-color: red
-
-    button
-        display: flex
-        justify-content: center
-        align-items: center
+        gap: 10px
+        box-sizing: border-box
+        padding: 10px
+        border-radius: 0.4rem
         background-color: aqua
-        svg
-            width: 15px
+
+        .number
+            font-size: 0.8rem
+        .title
+            flex: 1
+            font-size: 0.8rem
+
+        .options
+            display: flex
+            align-items: center
+            gap: 5px
+
+        button.btn-status
+            width: 22px
+            height: 22px
+            border-radius: 50%
+            background-color: red
+
+        button
+            display: flex
+            justify-content: center
+            align-items: center
+            background-color: aqua
+            svg
+                width: 15px
+
+    .t-main
+        width: 100%
+        box-sizing: border-box
+        padding: 10px
+        border-radius: 0.4rem
+        background-color: aqua
+        margin-top: 10px
+        display: none
+
+        .block-project
+            display: flex
+            align-items: flex-start
+            gap: 25px
+            .block-left
+                width: 300px
+                height: 250px
+                overflow: hidden
+                border-radius: 1rem
+                position: relative
+                img
+                    width: 110%
+                    position: absolute
+                    top: 50%
+                    left: 50%
+                    transform: translate(-50%, -50%)
+            .block-right
+                flex: 1
+                box-sizing: border-box
+                padding: 10px
+                h4
+                    font-size: 1.1rem
+                .description-short
+                    font-size: 0.8rem
+                    margin-top: 25px
+
+        .block-task
+            margin-top: 10px
+        
+            & > *:not(:first-child)
+                margin-top: 10px
+
+
+            .status
+                width: 100%
+                .label
+                    font-size: 0.8rem
+                    font-weight: bolder
+                .shape-value-options
+                    display: flex
+                    justify-content: space-between
+                    align-items: center
+                    gap: 25px
+                    flex-wrap: wrap
+                .shape-value
+                    display: flex
+                    align-items: center
+                    gap: 5px
+                    margin-top: 5px
+                    .shape
+                        width: 10px
+                        height: 10px
+                        border-radius: 50%
+                        background-color: red
+                    .value
+                        font-size: 0.8rem
+                .options
+                    display: flex
+                    gap: 10px
+                    align-items: center
+                    button
+                        font-size: 0.8rem
+                        box-sizing: border-box
+                        padding: 5px
+                        border-radius: 0.4rem
+                        background-color: white
+            h6
+                font-size: 1rem
+            p
+                font-size: 0.8rem
+
+            .btn-delete
+                font-size: 0.8rem
+                box-sizing: border-box
+                padding: 5px
+                border-radius: 0.4rem
+                background-color: white
+                
             
+                
