@@ -80,7 +80,7 @@ export default class Projects extends React.Component<ProjectsProps, ProjectsSta
                 </div>
                 <Pagination />
                 <DialogCreate ref={ this.refDialogCreate } />
-                <DialogShow ref={ this.refDialogShow } />
+                <DialogShow ref={ this.refDialogShow } data={ {} } />
                 <DialogDelete ref={ this.refDialogDelete } />
             </div>
         )

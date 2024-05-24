@@ -78,9 +78,6 @@ export default class Menu extends React.Component<any, MenuState>
                             </div>
 
                             <div className="menu-sub-menu">
-                                <Link href="/automatization/tests" className="menu-item">
-                                    Tests    
-                                </Link>
                                 <Link href="/automatization/notifications" className="menu-item">
                                     Notifications
                                 </Link>

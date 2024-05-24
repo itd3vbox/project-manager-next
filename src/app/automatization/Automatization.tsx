@@ -7,9 +7,13 @@ import {
     StarIcon,
     PlayIcon,
     EllipsisVerticalIcon,
+    CalendarIcon,
 } from '@heroicons/react/24/outline';
 import Pagination from "@/components/pagination/Pagination";
 import DialogCreate from "./DialogCreate/DialogCreate";
+import DialogShow from "./DialogShow/DialogShow";
+import DialogDelete from "./DialogDelete/DialogDelete";
+import DialogScheduler from "./DialogScheduler/DialogScheduler";
 
 
 interface AutomatizationProps
@@ -26,6 +30,10 @@ interface AutomatizationState
 export default class Automatization extends React.Component<AutomatizationProps, AutomatizationState>
 {
     refDialogCreate: any
+    refDialogShow: any
+    refDialogDelete: any
+    refDialogScheduler: any
+
     constructor(props: AutomatizationProps)
     {
         super(props)
@@ -33,11 +41,24 @@ export default class Automatization extends React.Component<AutomatizationProps,
 
         }
         this.refDialogCreate = React.createRef()
+        this.refDialogShow = React.createRef()
+        this.refDialogDelete = React.createRef()
+        this.refDialogScheduler = React.createRef()
     }
 
     handleDialogCreateOnSelect()
     {
         this.refDialogCreate.current.select()
+    }
+
+    handleDialogShowOnSelect()
+    {
+        this.refDialogShow.current.select()
+    }
+
+    handleDialogSchedulerOnSelect()
+    {
+        this.refDialogScheduler.current.select()
     }
 
     renderAutomates()
@@ -55,7 +76,8 @@ export default class Automatization extends React.Component<AutomatizationProps,
                             <button type="button">
                                 <PlayIcon />
                             </button>
-                            <button type="button">
+                            <button type="button"
+                                onClick={ () => this.handleDialogShowOnSelect() }>
                                 <EllipsisVerticalIcon />
                             </button>
                         </div>
@@ -87,9 +109,13 @@ export default class Automatization extends React.Component<AutomatizationProps,
                 {/* Reusable Component ... copy this model */}
                 <div className="a-block-top">
                     <div className="block-zero">
-                        <button type="button"
+                        <button type="button" className="btn-create"
                             onClick={ () => this.handleDialogCreateOnSelect() }>
                             <PlusIcon />
+                        </button>
+                        <button type="button" className="btn-scheduler"
+                            onClick={ () => this.handleDialogSchedulerOnSelect() }>
+                            <CalendarIcon />
                         </button>
                     </div>
                     <div className="block-metrics"></div>
@@ -101,6 +127,9 @@ export default class Automatization extends React.Component<AutomatizationProps,
                     <Pagination />
                 </div>
                 <DialogCreate ref={ this.refDialogCreate } />
+                <DialogShow ref={ this.refDialogShow } data={ {} } />
+                <DialogDelete ref={ this.refDialogDelete } />
+                <DialogScheduler ref={ this.refDialogScheduler } />
             </div>
         )
     }
