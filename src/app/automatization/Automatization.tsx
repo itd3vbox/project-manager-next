@@ -3,10 +3,13 @@
 import React from "react"
 import {
     XMarkIcon,
+    PlusIcon,
     StarIcon,
     PlayIcon,
     EllipsisVerticalIcon,
 } from '@heroicons/react/24/outline';
+import Pagination from "@/components/pagination/Pagination";
+import DialogCreate from "./DialogCreate/DialogCreate";
 
 
 interface AutomatizationProps
@@ -20,15 +23,21 @@ interface AutomatizationState
     
 }
 
-export default class Automatization extends React.Component<any, AutomatizationState>
+export default class Automatization extends React.Component<AutomatizationProps, AutomatizationState>
 {
-
-    constructor(props: any)
+    refDialogCreate: any
+    constructor(props: AutomatizationProps)
     {
         super(props)
         this.state = {
 
         }
+        this.refDialogCreate = React.createRef()
+    }
+
+    handleDialogCreateOnSelect()
+    {
+        this.refDialogCreate.current.select()
     }
 
     renderAutomates()
@@ -77,14 +86,21 @@ export default class Automatization extends React.Component<any, AutomatizationS
             <div id="automatization">
                 {/* Reusable Component ... copy this model */}
                 <div className="a-block-top">
-                    <div className="block-zero"></div>
+                    <div className="block-zero">
+                        <button type="button"
+                            onClick={ () => this.handleDialogCreateOnSelect() }>
+                            <PlusIcon />
+                        </button>
+                    </div>
                     <div className="block-metrics"></div>
                 </div>
                 <div className="a-block-main">
                     <div className="list">
                         { this.renderAutomates() }
                     </div>
+                    <Pagination />
                 </div>
+                <DialogCreate ref={ this.refDialogCreate } />
             </div>
         )
     }
