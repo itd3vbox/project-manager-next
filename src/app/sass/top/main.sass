@@ -9,6 +9,7 @@
     padding: 5px 10px
     gap: 10px
     overflow: hidden
+    position: relative
 
     & > .icon
         width: 40px
@@ -28,6 +29,7 @@
     & > .btn-user
         position: relative
         background-color: aqua
+        color: black
         
         svg
             width: 20px
@@ -50,6 +52,8 @@
         height: 30px
         border-radius: 50%
         object-fit: cover
+
+    @import './_user'
 
     @media (max-width: 425px) 
         & > .btn-alert,

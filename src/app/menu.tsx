@@ -41,12 +41,12 @@ export default class Menu extends React.Component<any, MenuState>
                     </button>
                 </div>
                 <div className="content-main">
-                    <a href="/" className="home-link">
+                    <Link href="/" className="home-link">
                         <span className="icon">
                             <SparklesIcon />
                         </span>
                         <span className="name">Project Managment</span>
-                    </a>
+                    </Link>
                     <div className="menu">
 
                         <Link href="/projects" className="menu-item current">
