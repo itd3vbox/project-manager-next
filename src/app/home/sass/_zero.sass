@@ -1,5 +1,6 @@
 .h-zero
     display: flex
+    flex-wrap: wrap
     gap: 25px
 
     .block-zero
@@ -9,6 +10,7 @@
         background-color: aqua
 
     .block-indicators
+        min-width: 350px
         flex: 1
         display: flex
         flex-wrap: wrap
@@ -40,3 +42,16 @@
                     font-size: 1.1rem
 
     @import '@/components/calendar/sass/main'
+
+
+    @media ( max-width: 1000px )
+        flex-direction: column
+
+        .block-zero
+            width: 100%
+
+        .block-indicators
+            .indicator
+                height: 120px
+        
+        

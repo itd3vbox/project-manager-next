@@ -2,16 +2,23 @@
     width: 100%
     margin-top: 25px
     display: flex
+    flex-wrap: wrap
     gap: 25px
 
     .block-zero
+        min-width: 400px
+        height: 350px
         flex: 1
         border-radius: 1rem
         background-color: aqua
 
     .block-projects
         display: flex
+        flex-wrap: wrap
         align-items: center
         gap: 10px
 
         @import './project/main'
+
+    @media ( max-width: 1000px )
+        flex-direction: column
