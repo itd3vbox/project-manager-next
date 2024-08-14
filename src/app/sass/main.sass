@@ -1,13 +1,19 @@
 \:root
-    --color-1: #f9e3df
-    --color-2: #fcfaf8
+    --color-1: #000000
+    --color-2: #ffffff
     --color-3: #3b3b49
-    --color-4: #97949e
-    --color-5: #e0e4e4
-    --color-6: #faedcf
-    --color-7: #ebb22d
-    --color-8: #61b059
-    --color-9: #535dab
+    --color-4: #70536f
+    --color-5: #b36a80
+    --color-6: #eb8a79
+    --color-7: #ffbb6a
+    --color-8: #f9f871
+
+    --color-11: #555063
+    --color-12: #555063
+    --color-13: #73667e
+    --color-14: #947c97
+    --color-15: #b792b0
+    --color-16: #dba9c6
 
 *
     margin: 0
@@ -16,6 +22,12 @@
 a
     text-decoration: none
 
+button
+    outline: none
+    border: none
+    cursor: pointer
+
+
 html,
 body
     width: 100%
@@ -23,12 +35,6 @@ body
     overflow: hidden
     display: flex
     justify-content: center
-
-
-button
-    outline: none
-    border: none
-    cursor: pointer
 
 #page
     max-width: 1400px
@@ -55,3 +61,4 @@ button
 
 @import  './menu/main'
 @import './top/main'
+@import './_page-menu-button'

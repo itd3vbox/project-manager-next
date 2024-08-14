@@ -5,12 +5,15 @@ import { XMarkIcon, CreditCardIcon } from '@heroicons/react/24/outline';
 
 interface ImageUploaderProps 
 {
-
+    onUpload?: (data: { file: File | null, url: string | null }) => void;
+    imageWeight?: number | null;
 }
 
 interface ImageUploaderState 
 {
+    imageFile: File | null;
     imageUrl: string | null;
+    error: string | null;
 }
 
 export default class ImageUploader extends React.Component<ImageUploaderProps, ImageUploaderState> 
@@ -22,19 +25,19 @@ export default class ImageUploader extends React.Component<ImageUploaderProps, I
     {
         super(props)
         this.state = {
+            imageFile: null,
             imageUrl: null,
+            error: null,
+
         }
         this.fileInputRef = React.createRef()
     }
 
-    handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => 
-    {
-        const file = e.target.files && e.target.files[0];
-        if (file) 
-        {
-            const imageUrl = URL.createObjectURL(file)
-            this.setState({ imageUrl })
-        }
+    getData() {
+        return {
+            file: this.state.imageFile,
+            url: this.state.imageUrl
+        };
     }
 
     triggerFileInputClick = () => {
@@ -44,16 +47,46 @@ export default class ImageUploader extends React.Component<ImageUploaderProps, I
         }
     }
 
+    handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => 
+    {
+        const file = e.target.files && e.target.files[0];
+        if (file) 
+        {
+            if (this.props.imageWeight && file.size > this.props.imageWeight) 
+            {
+                this.setState({ error: `Le poids maximal est de ${this.props.imageWeight / (1024 * 1024)} Mo` });
+                return ;
+            }
+            const imageUrl = URL.createObjectURL(file);
+            this.setState({ imageFile: file, imageUrl }, () => {
+                this.props.onUpload?.(this.getData());
+            });
+        }
+    }
+
+    handleImageClear = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.stopPropagation()
+        this.setState({ imageFile: null, imageUrl: null }, () => {
+            this.props.onUpload?.(this.getData());
+        });
+        if (this.fileInputRef.current) {
+            this.fileInputRef.current.value = ''
+        }
+    }
+
     render() {
-        const { imageUrl } = this.state
+        const { imageUrl, error } = this.state
         return (
             <div className="image-uploader">
                 {imageUrl ? (
-                    <div className="image" onClick={this.triggerFileInputClick}>
+                    <div className="image-preview" onClick={this.triggerFileInputClick}>
                         <img src={imageUrl} alt="Uploaded" />
+                        <button className="btn-clear" onClick={ this.handleImageClear }>
+                            <XMarkIcon />
+                        </button>
                     </div>
                 ) : (
-                    <div className="image" onClick={this.triggerFileInputClick}>
+                    <div className="image-input" onClick={this.triggerFileInputClick}>
                         <input
                             type="file"
                             id="fileInput"
@@ -65,6 +98,10 @@ export default class ImageUploader extends React.Component<ImageUploaderProps, I
                         Click to upload
                     </div>
                 )}
+                { error !== null && (
+                        <div className="error">{ error }</div>
+                    )
+                }
             </div>
         );
     }

@@ -17,36 +17,46 @@ interface MenuProps
 
 interface MenuState
 {
-    
+    isSelected: boolean
 }
 
-export default class Menu extends React.Component<any, MenuState>
+export default class Menu extends React.Component<MenuProps, MenuState>
 {
 
-    constructor(props: any)
+    constructor(props: MenuProps)
     {
         super(props)
         this.state = {
-
+            isSelected: false,
         }
+    }
+
+    select() {
+        this.setState({
+            ...this.state,
+            isSelected: !this.state.isSelected,
+        });
     }
 
     render()
     {
         return (
-            <div id="page-menu">
+            <div id="page-menu"  className={this.state.isSelected ? 'selected' : ''}>
                 <div className="content-close">
-                    <button className="btn" type="submit">
+                    <button className="btn" type="button"
+                        onClick={() => this.select()}>
                         <XMarkIcon />
                     </button>
                 </div>
                 <div className="content-main">
+
                     <Link href="/" className="home-link">
                         <span className="icon">
                             <SparklesIcon />
                         </span>
                         <span className="name">Project Managment</span>
                     </Link>
+                    
                     <div className="menu">
 
                         <Link href="/projects" className="menu-item current">

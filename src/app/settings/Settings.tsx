@@ -5,7 +5,7 @@ import {
     XMarkIcon,
     CreditCardIcon,
 } from '@heroicons/react/24/outline';
-import AvatarUploader from "@/components/avatar-uploader/AvatarUploader";
+import ImageUploader from "@/components/image-uploader/ImageUploader";
 
 
 interface SettingsProps
@@ -39,7 +39,7 @@ export default class Settings extends React.Component<any, SettingsState>
 
                     <div className="block-avatar">
                         <label htmlFor="s-avatar">Avatar</label>
-                        <AvatarUploader />
+                        <ImageUploader />
                         <p className="error">Avatar should not be empty.</p>
                     </div>
 

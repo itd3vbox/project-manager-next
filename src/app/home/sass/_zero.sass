@@ -7,13 +7,15 @@
         width: 300px
         min-height: 300px
         border-radius: 1rem
-        background-color: aqua
+        background-color: var(--color-3)
+        color: var(--color-2)
 
     .block-indicators
         min-width: 350px
         flex: 1
         display: flex
         flex-wrap: wrap
+        justify-content: center
         gap: 10px
 
         .indicator
@@ -26,7 +28,9 @@
             align-items: center
             justify-content: center
             border-radius: 1rem
-            background-color: aqua
+            background-color: var(--color-3)
+            color: var(--color-2)
+
             .label
                 font-size: 0.8rem
                 font-weight: bolder
@@ -39,7 +43,7 @@
                     svg
                         width: 25px
                 .value
-                    font-size: 1.1rem
+                    font-size: 1rem
 
     @import '@/components/calendar/sass/main'
 

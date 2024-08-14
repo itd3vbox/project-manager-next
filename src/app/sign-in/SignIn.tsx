@@ -6,22 +6,23 @@ import {
     CreditCardIcon,
 } from '@heroicons/react/24/outline';
 
+import './sass/main'
 
-interface ComponentClassProps
+interface SignInProps
 {
     
 }
 
 
-interface ComponentClassState
+interface SignInState
 {
     
 }
 
-export default class ComponentClass extends React.Component<any, ComponentClassState>
+export default class SignIn extends React.Component<SignInProps, SignInState>
 {
 
-    constructor(props: any)
+    constructor(props: SignInProps)
     {
         super(props)
         this.state = {
@@ -32,8 +33,8 @@ export default class ComponentClass extends React.Component<any, ComponentClassS
     render()
     {
         return (
-            <div className="component">
-            {/* Reusable Component ... copy this model */}
+            <div id="sign-in">
+                
             </div>
         )
     }

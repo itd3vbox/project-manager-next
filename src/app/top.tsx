@@ -8,13 +8,14 @@ import {
     BellIcon,
     Cog8ToothIcon,
     ArrowUpTrayIcon,
+    Bars3BottomLeftIcon,
 
 } from '@heroicons/react/24/outline';
 
 
 interface TopProps
 {
-    
+    onMenuOnSelect: () => void
 }
 
 
@@ -24,12 +25,12 @@ interface TopState
     isUserVisible: boolean;
 }
 
-export default class Top extends React.Component<any, TopState>
+export default class Top extends React.Component<TopProps, TopState>
 {
     btnUserRef: React.RefObject<HTMLButtonElement>
     userDivRef: React.RefObject<HTMLDivElement>
 
-    constructor(props: any)
+    constructor(props: TopProps)
     {
         super(props)
         this.state = {
@@ -81,6 +82,11 @@ export default class Top extends React.Component<any, TopState>
         this.setState({ isUserVisible: false })
     }
 
+    handleMenuButtonOnSelect = () => {
+        this.props.onMenuOnSelect()
+    }
+    
+
     render()
     {
         return (
@@ -97,6 +103,10 @@ export default class Top extends React.Component<any, TopState>
                     ref={this.btnUserRef}
                     onClick={ () => this.handleUserOnClick() }>
                     <img src="https://cdn-icons-png.flaticon.com/512/147/147144.png" className="avatar" />
+                </button>
+                <button type="button" id='page-menu-button'
+                    onClick={() => this.handleMenuButtonOnSelect()}>
+                    <Bars3BottomLeftIcon />
                 </button>
                 <div className="user"
                     style={{

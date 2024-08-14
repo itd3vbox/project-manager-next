@@ -6,10 +6,11 @@
     box-sizing: border-box
     padding: 10px 15px
     border-radius: 0.4rem
-    background-color: aqua
+    background-color: var(--color-3)
+    color: var(--color-2)
     position: relative
     &:hover
-        background-color: #eeeeee
+        background-color: var(--color-4)
 
     &.read
         &::before
@@ -17,7 +18,7 @@
             display: block
             width: 0
             height: 80%
-            border-left: 4px solid blue
+            border-left: 4px solid var(--color-5)
             position: absolute
             top: 50%
             left: 5px
@@ -43,15 +44,8 @@
         display: flex
         justify-content: center
         align-items: center
-        background-color: aqua
-        svg
-            width: 15px
-                
-    button
-        display: flex
-        justify-content: center
-        align-items: center
-        background-color: aqua
+        background-color: var(--color-4)
+        color: var(--color-2)
         svg
             width: 15px
             
