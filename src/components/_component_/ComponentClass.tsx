@@ -18,10 +18,10 @@ interface ComponentClassState
     
 }
 
-export default class ComponentClass extends React.Component<any, ComponentClassState>
+export default class ComponentClass extends React.Component<ComponentClassProps, ComponentClassState>
 {
 
-    constructor(props: any)
+    constructor(props: ComponentClassProps)
     {
         super(props)
         this.state = {

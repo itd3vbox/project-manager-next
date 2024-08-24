@@ -94,8 +94,8 @@ export default class Top extends React.Component<TopProps, TopState>
                 <div className="icon">
                     <MagnifyingGlassIcon />
                 </div>
-                <input type="text" placeholder="search ..."/>
-                <Link href="/settings" className="btn-alert">
+                <input type="text" placeholder="Ex.: Project Manager, Task #task001 ..."/>
+                <Link href="/automatization/notifications" className="btn-alert">
                     <BellIcon />
                     <div className="indicator"></div>
                 </Link>

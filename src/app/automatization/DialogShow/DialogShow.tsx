@@ -7,6 +7,7 @@ import {
     PlayIcon,
 } from '@heroicons/react/24/outline';
 import ImageUploader from "@/components/image-uploader/ImageUploader";
+import Task from "@/app/tasks/Task";
 
 
 interface DialogShowProps

@@ -1,6 +1,7 @@
 .a-block-top
     width: 100%
     display: flex
+    flex-wrap: wrap
     gap: 10px
 
     .block-zero
@@ -40,6 +41,16 @@
         border-radius: 1rem
         background-color: var(--color-3)
         color: var(--color-2)
+
+    @media ( max-width: 1000px )
+        .block-zero
+            width: 100%
+
+    @media ( max-width: 900px )
+        .block-zero
+            width: 300px
         
-        
+    @media ( max-width: 620px )
+        .block-zero
+            width: 100%
 
