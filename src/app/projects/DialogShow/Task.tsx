@@ -11,6 +11,7 @@ import {
 
 interface TaskProps
 {
+    data: any
     order: number
 }
 
@@ -45,7 +46,7 @@ export default class Task extends React.Component<TaskProps, TaskState>
             <div className={"task" + (this.state.isSelected ? ' selected' : '')}>
                 <div className="t-top">
                     <div className="number">{ this.props.order }</div>
-                    <div className="title">Debug Project 1</div>
+                    <div className="title">{ this.props.data.title }</div>
                     <div className="options">
                         <button type="button" className="btn-status">
                             <CheckCircleIcon />                       
@@ -56,21 +57,18 @@ export default class Task extends React.Component<TaskProps, TaskState>
                     </div>
                 </div>
                 <div className="t-main">
+                    <div className="id">#{ this.props.data.id }</div>
                     <div className="status">
                         <div className="label">Status</div>
                         <div className="shape-value">
                             <div className="shape"></div>
-                            <div className="value">Done</div>
+                            <div className="value">{ this.props.data.status_info.value_text }</div>
                         </div>
                     </div>
                     <h6>Description - Short</h6>
-                    <p className="description-short">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error doloribus a sequi magnam ex repellat illo beatae minus, eveniet commodi.
-                    </p>
+                    <p className="description-short">{ this.props.data.description_short }</p>
                     <h6>Description</h6>
-                    <p className="description-short">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error doloribus a sequi magnam ex repellat illo beatae minus, eveniet commodi.
-                    </p>
+                    <p className="description">{ this.props.data.description }</p>
                 </div>
             </div>
         )

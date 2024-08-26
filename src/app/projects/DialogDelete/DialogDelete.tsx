@@ -10,32 +10,89 @@ import ImageUploader from "@/components/image-uploader/ImageUploader";
 
 interface DialogDeleteProps
 {
-    
+    onDelete: () => void
 }
 
 
 interface DialogDeleteState
 {
     isSelected: boolean
+    data: any
 }
 
-export default class DialogDelete extends React.Component<any, DialogDeleteState>
+export default class DialogDelete extends React.Component<DialogDeleteProps, DialogDeleteState>
 {
 
-    constructor(props: any)
+    constructor(props: DialogDeleteProps)
     {
         super(props)
         this.state = {
             isSelected: false,
+            data: null,
         }
     }
 
-    select()
+    select(data: any = null)
     {
         this.setState({
             ...this.state,
             isSelected: !this.state.isSelected,
+            data: data,
         })
+    }
+
+    async destroy()
+    {
+        if (!this.state.data)
+            return 
+
+        const multipartFormData = new FormData()
+        multipartFormData.append('_method', 'DELETE')
+
+        // for (const key in formData) 
+        // {
+        //     if (formData.hasOwnProperty(key))
+        //         multipartFormData.append(key, formData[key])
+        // }
+
+        const url: string = 'http://projectmanager.demo/api/projects/' + this.state.data.id 
+
+        const token = localStorage.getItem('access_token')
+        
+        if (!token) {
+            console.error('No token found')
+            return
+        }
+    
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                    //'Origin': 'http://localhost:3000',
+                },
+                body: multipartFormData, //JSON.stringify(formData)
+            })
+
+            const result = await response.json()
+            console.log(result)
+            
+            this.setState({
+                isSelected: false,
+                data: null,
+            }, () => this.props.onDelete())            
+        } 
+        catch (error) 
+        {
+            console.error('Error', error)
+        }
+    }
+
+    handleOnDelete()
+    {
+        this.destroy()
     }
 
     render()
@@ -57,11 +114,10 @@ export default class DialogDelete extends React.Component<any, DialogDeleteState
                 </div>
                 <div className="dc-main">
                     <div className="confirmation">
-                        <h6>Project 1</h6>
-                        <p className="description-short">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ullam amet velit in numquam, nobis corporis? Beatae possimus fugiat doloribus ducimus voluptatibus quibusdam deleniti eos.
-                        </p>
-                        <button type="button">Delete</button>
+                        <h6>{ this.state.data ? this.state.data.name: '' }</h6>
+                        <p className="description-short">{ this.state.data ? this.state.data.description_short: '' }</p>
+                        <button type="button"
+                            onClick={ () => this.handleOnDelete() }>Delete</button>
                     </div>
                 </div>
             </div>

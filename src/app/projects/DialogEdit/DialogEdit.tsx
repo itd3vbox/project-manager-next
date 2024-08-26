@@ -10,7 +10,7 @@ import ImageUploader from "@/components/image-uploader/ImageUploader";
 
 interface DialogEditProps
 {
-    
+    onEdit: () => void
 }
 
 
@@ -22,10 +22,10 @@ interface DialogEditState
     }
 }
 
-export default class DialogEdit extends React.Component<any, DialogEditState>
+export default class DialogEdit extends React.Component<DialogEditProps, DialogEditState>
 {
 
-    constructor(props: any)
+    constructor(props: DialogEditProps)
     {
         super(props)
         this.state = {
@@ -39,7 +39,7 @@ export default class DialogEdit extends React.Component<any, DialogEditState>
         const formData: any = {}
         if (data)
         {
-            formData['edit_url'] = 'http://projectmanager.demo/projects/' + data.id
+            formData['edit_url'] = 'http://projectmanager.demo/api/projects/' + data.id
             formData['name'] = data.name
             formData['description_short'] = data.description_short
             formData['image_url'] = data.image_main_path
@@ -80,42 +80,46 @@ export default class DialogEdit extends React.Component<any, DialogEditState>
         this.update()
     }
 
-    async update() {
-        const { formData } = this.state;
-    
-        const multipartFormData = new FormData();
-        console.log('formData:', formData);
-    
-        Object.keys(formData).forEach(key => {
-            multipartFormData.append(key, formData[key]);
-        });
+    async update() 
+    {
+        const { formData } = this.state
 
+        const multipartFormData = new FormData()
         multipartFormData.append('_method', 'PUT')
-    
-        
-        const entriesIterator = multipartFormData.entries();
-        let pair = entriesIterator.next();
-        while (!pair.done) {
-            console.log(pair.value[0] + ', ' + pair.value[1]);
-            pair = entriesIterator.next();
+        for (const key in formData) 
+        {
+            if (formData.hasOwnProperty(key))
+                multipartFormData.append(key, formData[key])
         }
-    
-        console.log(multipartFormData, formData);
-    
+
+        const url: string = formData['edit_url']
+
+        const token = localStorage.getItem('access_token')
+        
+        if (!token) {
+            console.error('No token found')
+            return
+        }
+        
         try {
-            const response = await fetch(this.state.formData['edit_url'], {
+            const response = await fetch(url, {
                 method: 'POST',
-                body: multipartFormData,
-                // headers: {
-                //     'Accept': '*/*',
-                //     'Content-Type': 'multipart/form-data',
-                // },
-            });
-    
-            const result = await response.json();
-            console.log(result);
-        } catch (error) {
-            console.error('Erreur lors de la soumission du formulaire', error);
+                credentials: 'include',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                    'Origin': 'http://localhost:3000',
+                },
+                body: multipartFormData, //JSON.stringify(formData)
+            })
+
+            const result = await response.json()
+            console.log(result)
+            this.props.onEdit()
+        } 
+        catch (error) 
+        {
+            console.error('Error', error)
         }
     }
     

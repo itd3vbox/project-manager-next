@@ -44,32 +44,48 @@ export default class Projects extends React.Component<ProjectsProps, ProjectsSta
 
     componentDidMount(): void 
     {
-        this.fetch()
+        this.search()
     }
 
-    async fetch()
+    async search()
     {
-   
+        const formData = {
+            is_asc: false,
+            max: 20,
+        }
+    
+        const url: string = 'http://projectmanager.demo/api/projects/search'
+
+        const token = localStorage.getItem('access_token')
+        
+        if (!token) {
+            console.error('No token found')
+            return
+        }
+
         try {
-            const response = await fetch('http://projectmanager.demo/projects', {
-                method: 'GET',
-                // headers: {
-                //     'Accept': '*/*',
-                //     'Content-Type': 'multipart/form-data', //'application/json'
-                // },
-                // body: multipartFormData, //JSON.stringify(formData)
+            const response = await fetch(url, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                    'Origin': 'http://localhost:3000',
+                },
+                body: JSON.stringify(formData)
             })
 
             const result = await response.json()
             console.log(result)
             this.setState({
                 ...this.state,
-                data: result.projects,
+                data: result,
             })
         } 
         catch (error) 
         {
-            console.error('Erreur lors de la soumission du formulaire', error)
+            console.error('Error fetch', error)
         }
     }
 
@@ -93,14 +109,25 @@ export default class Projects extends React.Component<ProjectsProps, ProjectsSta
         this.refDialogDelete.current.select(data)
     }
 
+    handleOnCreate()
+    {
+        this.search()
+    }
+
+    handleOnEdit()
+    {
+        this.search()
+    }
+
     renderProjects()
     {
+        const preojects = this.state.data.data ? this.state.data.data.data : []
         let elements: any = []
-        for (let index = 0; index < this.state.data.length; index++) 
+        for (let index = 0; index < preojects.length; index++) 
         {
             elements.push(
                 <Project key={ index } 
-                    data={this.state.data[index]}
+                    data={preojects[index]}
                     onShow={ (data: any) => this.handleDialogShowOnSelect(data) }
                     onEdit={ (data: any) => this.handleDialogEditOnSelect(data) }
                     onDelete={ (data: any) => this.handleDialogDeleteOnSelect(data) } />
@@ -127,10 +154,17 @@ export default class Projects extends React.Component<ProjectsProps, ProjectsSta
                     { this.renderProjects() }
                 </div>
                 <Pagination />
-                <DialogCreate ref={ this.refDialogCreate } />
-                <DialogShow ref={ this.refDialogShow } data={ {} } />
-                <DialogEdit ref={ this.refDialogEdit } data={ {} } />
-                <DialogDelete ref={ this.refDialogDelete } data={ {} } />
+                <DialogCreate 
+                    ref={ this.refDialogCreate }
+                    onCreate={ () => this.handleOnCreate() } />
+                <DialogEdit 
+                    ref={ this.refDialogEdit }
+                    onEdit={ () => this.handleOnEdit() } />
+                <DialogDelete
+                    ref={ this.refDialogDelete }
+                    onDelete={ () => this.handleOnEdit() } />
+                <DialogShow 
+                    ref={ this.refDialogShow } data={ {} } />
             </div>
         )
     }

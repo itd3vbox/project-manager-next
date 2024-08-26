@@ -10,7 +10,7 @@ import ImageUploader from "@/components/image-uploader/ImageUploader";
 
 interface DialogCreateProps
 {
-    
+    onCreate: () => void
 }
 
 
@@ -22,10 +22,10 @@ interface DialogCreateState
     }
 }
 
-export default class DialogCreate extends React.Component<any, DialogCreateState>
+export default class DialogCreate extends React.Component<DialogCreateProps, DialogCreateState>
 {
 
-    constructor(props: any)
+    constructor(props: DialogCreateProps)
     {
         super(props)
         this.state = {
@@ -73,30 +73,46 @@ export default class DialogCreate extends React.Component<any, DialogCreateState
         const { formData } = this.state
 
         const multipartFormData = new FormData()
+        //multipartFormData.append('_method', 'POST')
+        multipartFormData.append('name', this.state.formData.name)
+        multipartFormData.append('description_short', this.state.formData.description_short)
+        multipartFormData.append('image', this.state.formData.image)
+        console.log('image', this.state.formData.image)
 
-        for (const key in formData) 
-        {
-            if (formData.hasOwnProperty(key))
-                multipartFormData.append(key, formData[key])
+        // for (const key in formData) 
+        // {
+        //     if (formData.hasOwnProperty(key))
+        //         multipartFormData.append(key, formData[key])
+        // }
+
+        const url: string = 'http://projectmanager.demo/api/projects'
+
+        const token = localStorage.getItem('access_token')
+        
+        if (!token) {
+            console.error('No token found')
+            return
         }
     
-
         try {
-            const response = await fetch('http://projectmanager.demo/projects', {
+            const response = await fetch(url, {
                 method: 'POST',
-                // headers: {
-                //     'Accept': '*/*',
-                //     'Content-Type': 'multipart/form-data', //'application/json'
-                // },
+                credentials: 'include',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                    //'Origin': 'http://localhost:3000',
+                },
                 body: multipartFormData, //JSON.stringify(formData)
             })
 
             const result = await response.json()
             console.log(result)
+            this.props.onCreate()
         } 
         catch (error) 
         {
-            console.error('Erreur lors de la soumission du formulaire', error)
+            console.error('Error', error)
         }
     }
 
@@ -129,6 +145,7 @@ export default class DialogCreate extends React.Component<any, DialogCreateState
                             <label htmlFor="dc-name">Name</label>
                             <input type="text" name="name" 
                                 id="dc-name"
+                                placeholder="Ex.: Project Manager"
                                 onChange={(e) => this.handleInputChange(e)} />
                             <p className="error">Message error.</p>
                         </div>

@@ -113,7 +113,7 @@ export default class Project extends React.Component<ProjectProps, ProjectState>
                         <EllipsisVerticalIcon />
                     </button>
                 </div>
-                <img src={ this.props.data.image_main_path } className="card-img-top" alt={ this.props.data.name }/>
+                <img src={ this.props.data.image_info.path } className="card-img-top" alt={ this.props.data.name }/>
                 <div className="content">
                     <h6>{ this.props.data.name }</h6>
                     <p className="description-short">{ this.props.data.description_short }</p>
