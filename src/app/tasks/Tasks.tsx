@@ -88,6 +88,11 @@ export default class Tasks extends React.Component<any, TasksState>
         this.refDialogCreate.current.select()
     }
 
+    handleOnCreate()
+    {
+        this.search()
+    }
+
     handleOnEdit(data: any)
     {
         this.refDialogEdit.current.select(data)
@@ -138,7 +143,8 @@ export default class Tasks extends React.Component<any, TasksState>
                     { this.renderTasks() }
                 </div>
                 <Pagination />
-                <DialogCreate ref={ this.refDialogCreate } />
+                <DialogCreate ref={ this.refDialogCreate }
+                    onCreate={ () => this.handleOnCreate() } />
                 <DialogEdit ref={ this.refDialogEdit }
                     onEdit={ () => this.handleOnUpdate() } />
             </div>
