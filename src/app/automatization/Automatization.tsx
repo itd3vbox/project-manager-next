@@ -24,7 +24,7 @@ interface AutomatizationProps
 
 interface AutomatizationState
 {
-    
+    data: any
 }
 
 export default class Automatization extends React.Component<AutomatizationProps, AutomatizationState>
@@ -38,7 +38,7 @@ export default class Automatization extends React.Component<AutomatizationProps,
     {
         super(props)
         this.state = {
-
+            data: [],
         }
         this.refDialogCreate = React.createRef()
         this.refDialogShow = React.createRef()
@@ -46,7 +46,56 @@ export default class Automatization extends React.Component<AutomatizationProps,
         this.refDialogScheduler = React.createRef()
     }
 
-    handleDialogCreateOnSelect()
+    componentDidMount(): void 
+    {
+        this.search()
+    }
+
+    async search()
+    {
+        const formData = {
+            is_asc: false,
+            max: 20,
+            with_project: true,
+        }
+    
+        const url: string = 'http://projectmanager.demo/api/automates/search'
+
+        const token = localStorage.getItem('access_token')
+        
+        if (!token) {
+            console.error('No token found')
+            return
+        }
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                    'Origin': 'http://localhost:3000',
+                },
+                body: JSON.stringify(formData)
+            })
+
+            const result = await response.json()
+            console.log(result)
+            this.setState({
+                ...this.state,
+                data: result,
+            })
+        } 
+        catch (error) 
+        {
+            console.error('Error fetch', error)
+        }
+    }
+    
+   
+     handleDialogCreateOnSelect()
     {
         this.refDialogCreate.current.select()
     }
@@ -61,11 +110,19 @@ export default class Automatization extends React.Component<AutomatizationProps,
         this.refDialogScheduler.current.select()
     }
 
+    handleOnCreate()
+    {
+        this.search()
+    }
+
     renderAutomates()
     {
+        const automates = this.state.data.data ? this.state.data.data.data : []
         let elements: any = []
-        for (let index = 0; index < 10; index++) 
+        for (let index = 0; index < automates.length; index++) 
         {
+            const automate = automates[index]
+
             elements.push(
                 <div className="automate" key={index}>
                     <div className="block-top">
@@ -83,10 +140,10 @@ export default class Automatization extends React.Component<AutomatizationProps,
                         </div>
                     </div>
                     <div className="block-main">
-                        <div className="name">Test Unit</div>
+                        <div className="name">{ automate.name }</div>
                         <div className="project">
                             <div className="label">Pr.:</div> 
-                            <div className="value">Project Manger</div>
+                            <div className="value">{ automate.project.name }</div>
                         </div>
                         <div className="date-latest">
                             <div className="label">Done:</div>
@@ -94,7 +151,7 @@ export default class Automatization extends React.Component<AutomatizationProps,
                         </div>
                     </div>
                     <div className="block-bottom">
-                        <div className="type">Test</div>
+                        <div className="type">{ automate.type }</div>
                     </div>
                 </div>
             )
@@ -126,7 +183,8 @@ export default class Automatization extends React.Component<AutomatizationProps,
                     </div>
                     <Pagination />
                 </div>
-                <DialogCreate ref={ this.refDialogCreate } />
+                <DialogCreate ref={ this.refDialogCreate }
+                    onCreate={ () => this.handleOnCreate() } />
                 <DialogShow ref={ this.refDialogShow } data={ {} } />
                 <DialogDelete ref={ this.refDialogDelete } />
                 <DialogScheduler ref={ this.refDialogScheduler } />
