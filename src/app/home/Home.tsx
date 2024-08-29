@@ -75,7 +75,7 @@ export default class Home extends React.Component<HomeProps, HomeState>
             const result = await response.json()
             console.log(result)
             this.setState({
-                dataMain: result,
+                dataMain: result.data,
             })
         } 
         catch (error) 
