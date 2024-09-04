@@ -24,6 +24,7 @@ interface SignInState
 {
     errors: string[]
     data: any
+    error?: string
 }
 
 class SignIn extends React.Component<SignInProps, SignInState>
@@ -38,6 +39,7 @@ class SignIn extends React.Component<SignInProps, SignInState>
                 email: '',
                 password: '',
             },
+            error: '',
         }
     }
 
@@ -67,6 +69,9 @@ class SignIn extends React.Component<SignInProps, SignInState>
         
             if (!response.ok) {
                 const errorData = await response.json()
+                this.setState({
+                    error: errorData.error || 'An unknown error occurred.'
+                });
                 throw new Error(errorData.message || 'Network response was not ok')
             }
     
@@ -83,13 +88,11 @@ class SignIn extends React.Component<SignInProps, SignInState>
                     email: '',
                     password: '',
                 },
+                error: '' ,
             })
         } 
         catch (error: any) {
             console.error('Sign in error:', error)
-            this.setState((prevState) => ({
-                errors: [...prevState.errors, error.message],
-            }))
         }
     }
 
@@ -147,14 +150,8 @@ class SignIn extends React.Component<SignInProps, SignInState>
                                 <button type="button" className="button-text"
                                     onClick={ () => this.handleOnSignIn() }>Sign In</button>
                             </div>
-                            <div className="errors">
-                                {this.state.errors.length > 0 && (
-                                    <ul>
-                                        {this.state.errors.map((error, index) => (
-                                            <li key={index} className="error">{error}</li>
-                                        ))}
-                                    </ul>
-                                )}
+                            <div className="form-errors">
+                                {this.state.error && <p>{this.state.error}</p>}
                             </div>
                         </form>
                     </div>

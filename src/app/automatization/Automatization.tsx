@@ -14,6 +14,7 @@ import DialogCreate from "./DialogCreate/DialogCreate";
 import DialogShow from "./DialogShow/DialogShow";
 import DialogDelete from "./DialogDelete/DialogDelete";
 import DialogScheduler from "./DialogScheduler/DialogScheduler";
+import Automate from "./Automate";
 
 
 interface AutomatizationProps
@@ -51,7 +52,7 @@ export default class Automatization extends React.Component<AutomatizationProps,
         this.search()
     }
 
-    async search()
+    async search(url: string = 'http://projectmanager.demo/api/automates/search')
     {
         const formData = {
             is_asc: false,
@@ -59,8 +60,6 @@ export default class Automatization extends React.Component<AutomatizationProps,
             with_project: true,
         }
     
-        const url: string = 'http://projectmanager.demo/api/automates/search'
-
         const token = localStorage.getItem('access_token')
         
         if (!token) {
@@ -85,7 +84,7 @@ export default class Automatization extends React.Component<AutomatizationProps,
             console.log(result)
             this.setState({
                 ...this.state,
-                data: result,
+                data: result.data,
             })
         } 
         catch (error) 
@@ -100,9 +99,9 @@ export default class Automatization extends React.Component<AutomatizationProps,
         this.refDialogCreate.current.select()
     }
 
-    handleDialogShowOnSelect()
+    handleDialogShowOnSelect(automate: any)
     {
-        this.refDialogShow.current.select()
+        this.refDialogShow.current.select(automate)
     }
 
     handleDialogSchedulerOnSelect()
@@ -115,45 +114,36 @@ export default class Automatization extends React.Component<AutomatizationProps,
         this.search()
     }
 
+    handleOnPrev()
+    {
+        const url = this.state.data && this.state.data.prev_page_url 
+            ? this.state.data.prev_page_url : null
+        if (url)
+            this.search(url)
+    }
+
+    handleOnNext()
+    {
+        const url = this.state.data && this.state.data.next_page_url 
+            ? this.state.data.next_page_url : null
+        if (url)
+            this.search(url)
+    }
+
+    // -- RENDER
+
     renderAutomates()
     {
-        const automates = this.state.data.data ? this.state.data.data.data : []
+        const automates = this.state.data.data ? this.state.data.data : []
         let elements: any = []
         for (let index = 0; index < automates.length; index++) 
         {
             const automate = automates[index]
 
             elements.push(
-                <div className="automate" key={index}>
-                    <div className="block-top">
-                        <div className="icon">
-                            <StarIcon />
-                        </div>
-                        <div className="options">
-                            <button type="button">
-                                <PlayIcon />
-                            </button>
-                            <button type="button"
-                                onClick={ () => this.handleDialogShowOnSelect() }>
-                                <EllipsisVerticalIcon />
-                            </button>
-                        </div>
-                    </div>
-                    <div className="block-main">
-                        <div className="name">{ automate.name }</div>
-                        <div className="project">
-                            <div className="label">Pr.:</div> 
-                            <div className="value">{ automate.project.name }</div>
-                        </div>
-                        <div className="date-latest">
-                            <div className="label">Done:</div>
-                            <div className="date">2024-12-31</div>
-                        </div>
-                    </div>
-                    <div className="block-bottom">
-                        <div className="type">{ automate.type }</div>
-                    </div>
-                </div>
+                <Automate 
+                    key={ index } data={ automate }
+                    onShow={ () => this.handleDialogShowOnSelect(automate) } />
             )
         }
         return elements
@@ -163,7 +153,6 @@ export default class Automatization extends React.Component<AutomatizationProps,
     {
         return (
             <div id="automatization">
-                {/* Reusable Component ... copy this model */}
                 <div className="a-block-top">
                     <div className="block-zero">
                         <button type="button" className="btn-create"
@@ -181,11 +170,13 @@ export default class Automatization extends React.Component<AutomatizationProps,
                     <div className="list">
                         { this.renderAutomates() }
                     </div>
-                    <Pagination />
+                    <Pagination
+                        onPrev={ () => this.handleOnPrev() }
+                        onNext={ () => this.handleOnNext() } />
                 </div>
                 <DialogCreate ref={ this.refDialogCreate }
                     onCreate={ () => this.handleOnCreate() } />
-                <DialogShow ref={ this.refDialogShow } data={ {} } />
+                <DialogShow ref={ this.refDialogShow } />
                 <DialogDelete ref={ this.refDialogDelete } />
                 <DialogScheduler ref={ this.refDialogScheduler } />
             </div>

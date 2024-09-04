@@ -12,7 +12,7 @@ import Task from "@/app/tasks/Task";
 
 interface DialogShowProps
 {
-    data: any
+
 }
 
 
@@ -20,6 +20,8 @@ interface DialogShowState
 {
     isSelected: boolean
     tabsMenuItemSelected: number
+    data: any
+    dataLog: any
 }
 
 export default class DialogShow extends React.Component<DialogShowProps, DialogShowState>
@@ -31,21 +33,60 @@ export default class DialogShow extends React.Component<DialogShowProps, DialogS
         this.state = {
             isSelected: false,
             tabsMenuItemSelected: 1,
+            data: null,
+            dataLog: null,
         }
     }
 
-    select()
+    select(data: any = null)
     {
         this.setState({
-            ...this.state,
             isSelected: !this.state.isSelected,
+            data: data,
+        }, () => {
+            if (this.state.isSelected)
+                this.log()
         })
+    }
+
+    async log()
+    {
+        const formData = new FormData()
+        //formData.append('_method', 'PATCH')
+    
+        const url: string = 'http://projectmanager.demo/api/automates/' + this.state.data.id + '/log'
+
+        const token = localStorage.getItem('access_token')
+        
+        if (!token) {
+            console.error('No token found')
+            return
+        }
+
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                    'Origin': 'http://localhost:3000',
+                },
+                //body: formData,
+            })
+
+            const result = await response.json()
+            console.log(result)
+        } 
+        catch (error) 
+        {
+            console.error('Error fetch', error)
+        }
     }
 
     handleTabsMenuItemOnClick(index: number)
     {
         this.setState({
-            ...this.state,
             tabsMenuItemSelected: index,
         })
     }
@@ -62,6 +103,10 @@ export default class DialogShow extends React.Component<DialogShowProps, DialogS
 
     render()
     {
+        const automate = this.state.data ? this.state.data : null
+        if (!automate) 
+            return <></> 
+
         let defaultLog = `
         [2024-05-24 10:00:00] INFO: Starting the automation process...
         [2024-05-24 10:01:00] DEBUG: Fetching data from API endpoint...
@@ -110,11 +155,11 @@ export default class DialogShow extends React.Component<DialogShowProps, DialogS
                         <div className={"tc-content" + (this.state.tabsMenuItemSelected === 1 ? ' selected' : '')}>
                             <div className="c-overview">
                                 <div className="automate">
-                                    <h4>{ this.props.data.name ? this.props.data.name : 'Automate 1' }</h4>
-                                    <p className="description-short">{ this.props.data.description_short ? this.props.data.description_short : 'A good project to help me to build other projects.' }</p>
+                                    <h4>{ automate.name ? automate.name : 'Automate 1' }</h4>
+                                    <p className="description-short">{ automate.description_short ? automate.description_short : 'A good project to help me to build other projects.' }</p>
                                     <div className="type">Test</div>
                                     <div className="date">
-                                        <div className="label">Done:</div>
+                                        <div className="label">Exec. Done:</div>
                                         <div className="value">2024-12-31 23:00:15</div>
                                     </div>
                                     <div className="options">
@@ -148,7 +193,7 @@ export default class DialogShow extends React.Component<DialogShowProps, DialogS
                         </div>
                         <div className={"tc-content" + (this.state.tabsMenuItemSelected === 2 ? ' selected' : '')}>
                            <div className="c-log">
-                                <pre><code>{  this.props.data.log_content ? this.props.data.log_content : defaultLog }</code></pre>
+                                <pre><code>{ '' }</code></pre>
                            </div>
                         </div>
                     </div>
