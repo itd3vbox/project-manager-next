@@ -109,6 +109,11 @@ export default class Automatization extends React.Component<AutomatizationProps,
         this.refDialogScheduler.current.select()
     }
 
+    handleAutomateOnExecute()
+    {
+        this.search()
+    }
+
     handleOnCreate()
     {
         this.search()
@@ -143,7 +148,8 @@ export default class Automatization extends React.Component<AutomatizationProps,
             elements.push(
                 <Automate 
                     key={ index } data={ automate }
-                    onShow={ () => this.handleDialogShowOnSelect(automate) } />
+                    onShow={ () => this.handleDialogShowOnSelect(automate) }
+                    onExecute={ () => this.handleAutomateOnExecute() } />
             )
         }
         return elements
@@ -176,7 +182,8 @@ export default class Automatization extends React.Component<AutomatizationProps,
                 </div>
                 <DialogCreate ref={ this.refDialogCreate }
                     onCreate={ () => this.handleOnCreate() } />
-                <DialogShow ref={ this.refDialogShow } />
+                <DialogShow ref={ this.refDialogShow }
+                    onExecute={ () => this.handleAutomateOnExecute() } />
                 <DialogDelete ref={ this.refDialogDelete } />
                 <DialogScheduler ref={ this.refDialogScheduler } />
             </div>

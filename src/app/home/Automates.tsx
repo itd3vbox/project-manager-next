@@ -132,7 +132,7 @@ export default class Automates extends React.Component<any, AutomatesState>
                         <ClockIcon />
                     </div>
                     <div className="name">{ automate.name }</div>
-                    <div className="duration">{ automate.duration_info.value_text }</div>
+                    <div className="duration">{ automate.exec_info.value_text }</div>
                     <button type="button"
                         onClick={ () => this.handleOnExecute(automate) }>
                         <PlayIcon />

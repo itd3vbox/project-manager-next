@@ -116,6 +116,7 @@ export default class Project extends React.Component<ProjectProps, ProjectState>
                 <img src={ this.props.data.image_info.path } className="card-img-top" alt={ this.props.data.name }/>
                 <div className="content">
                     <h6>{ this.props.data.name }</h6>
+                    <div className="id">#{ this.props.data.id }</div>
                     <p className="description-short">{ this.props.data.description_short }</p>
                     <div className="date-updated">
                         <CalendarIcon />

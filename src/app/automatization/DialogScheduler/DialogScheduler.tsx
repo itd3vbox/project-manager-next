@@ -20,18 +20,22 @@ interface DialogSchedulerState
 {
     isSelected: boolean
     tabsMenuItemSelected: number
+    projectSelected: any
 }
 
 export default class DialogScheduler extends React.Component<DialogSchedulerProps, DialogSchedulerState>
 {
+    refAutomates: any
 
     constructor(props: DialogSchedulerProps)
     {
         super(props)
         this.state = {
             isSelected: false,
-            tabsMenuItemSelected: 2,
+            tabsMenuItemSelected: 1,
+            projectSelected: null,
         }
+        this.refAutomates = React.createRef()
     }
 
     select()
@@ -47,6 +51,13 @@ export default class DialogScheduler extends React.Component<DialogSchedulerProp
         this.setState({
             ...this.state,
             tabsMenuItemSelected: index,
+        })
+    }
+
+    handleMainFormOnProjectSelect(data: any)
+    {
+        this.setState({
+            projectSelected: data,
         })
     }
 
@@ -76,10 +87,11 @@ export default class DialogScheduler extends React.Component<DialogSchedulerProp
                     </div>
                     <div className="m-tabs-contents">
                         <div className={"tc-content" + (this.state.tabsMenuItemSelected === 1 ? ' selected' : '')}>
-                            <MainForm />
+                            <MainForm onProjectSelect={ (data: any) => this.handleMainFormOnProjectSelect(data) }  />
                         </div>
                         <div className={"tc-content" + (this.state.tabsMenuItemSelected === 2 ? ' selected' : '')}>
-                           <Automates />
+                           <Automates ref={ this.refAutomates } 
+                                project={ this.state.projectSelected } />
                         </div>
                     </div>
                 </div>

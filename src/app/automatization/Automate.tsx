@@ -14,6 +14,7 @@ interface AutomateProps
 {
     data: any
     onShow: () => void
+    onExecute: () => void
 }
 
 
@@ -37,7 +38,7 @@ export default class Automate extends React.Component<AutomateProps, AutomateSta
     {
         const formData = new FormData()
         //formData.append('_method', 'PATCH')
-        formData.append('status', String(this.props.data.status === 1 ? 2 : 1))
+        //formData.append('status', String(this.props.data.status === 1 ? 2 : 1))
     
         const url: string = 'http://projectmanager.demo/api/automates/' + this.props.data.id + '/execute'
 
@@ -108,7 +109,7 @@ export default class Automate extends React.Component<AutomateProps, AutomateSta
                     </div>
                     <div className="date-latest">
                         <div className="label">Done:</div>
-                        <div className="date">2024-12-31</div>
+                        <div className="date">{ automate.exec_info.date }</div>
                     </div>
                 </div>
                 <div className="block-bottom">

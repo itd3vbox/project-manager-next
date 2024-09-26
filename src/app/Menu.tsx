@@ -7,6 +7,7 @@ import {
     SparklesIcon,
     ArrowDownIcon,
     ArrowLeftEndOnRectangleIcon,
+    UserGroupIcon,
 } from '@heroicons/react/24/outline';
 
 import { connect } from 'react-redux';
@@ -147,6 +148,13 @@ class Menu extends React.Component<MenuProps, MenuState>
                                 </Link>
                             </div>
                         </div>  
+
+                        <Link href="/users" className="menu-item current">
+                            <span className="icon">
+                                <UserGroupIcon />
+                            </span>
+                            <span className="name">Users</span>
+                        </Link>
                     
                         <Link href="/settings" className="menu-item">
                             <span className="icon">
